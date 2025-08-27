@@ -2,7 +2,7 @@
 UNIT_API_TOKEN=your_unit_api_token_here
 UNIT_API_URL=https://api.s.unit.sh
 
-# Optional: Slack Integration
+# Slack Integration (Recommended for accounting team notifications)
 SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/slack/webhook
 
 # Optional: Cron Security (recommended for production)

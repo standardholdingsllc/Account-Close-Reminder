@@ -4,7 +4,7 @@ A Vercel-hosted monitoring tool that tracks Unit banking accounts with negative 
 
 ## Features
 
-- 🔄 **Daily Automated Scans**: Runs every day at noon EST via Vercel cron
+- 🔄 **Daily Automated Scans**: Runs every day at 12:30 PM EST via Vercel cron
 - 🚨 **Early Warning System**: Alerts when accounts have been negative for 50+ days (10-day buffer)
 - 🎯 **Manual Scanning**: "Scan Now" button for immediate checks
 - 💬 **Slack Integration**: Optional notifications to your team
@@ -65,7 +65,7 @@ CRON_SECRET=your_random_secret_string
 ## How It Works
 
 ### Daily Monitoring
-- **Cron Schedule**: Every day at 5:00 PM UTC (12:00 PM EST)
+- **Cron Schedule**: Every day at 5:30 PM UTC (12:30 PM EST)
 - **Process**:
   1. Fetches all accounts from Unit API
   2. Filters for negative balance accounts
@@ -105,21 +105,64 @@ Scheduled endpoint (called by Vercel cron)
 - Updates results
 - Sends Slack notifications (if configured)
 
-## Slack Integration (Optional)
+## 💬 Slack Integration (Recommended)
 
-To receive Slack notifications:
+Professional notifications to your accounting team when accounts need attention.
 
-1. Create a Slack webhook:
+### **Quick Setup:**
+
+1. **Create Slack App:**
    - Go to https://api.slack.com/apps
-   - Create new app → Incoming Webhooks
-   - Copy webhook URL
+   - Create new app → "From scratch"
+   - Choose your workspace and app name
 
-2. Add to environment variables:
+2. **Enable Incoming Webhooks:**
+   - Go to "Incoming Webhooks" in left sidebar
+   - Toggle "Activate Incoming Webhooks" to On
+   - Click "Add New Webhook to Workspace"
+   - Choose your accounting team channel (e.g., #accounting, #finance)
+   - Copy the webhook URL
+
+3. **Add to Vercel Environment Variables:**
    ```env
-   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/WEBHOOK/URL
+   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
    ```
 
-3. The system will send notifications when accounts are found during the daily scan
+### **Notification Behavior:**
+
+**🚨 Action-Required Alerts Only:**
+- **Only sends when accounts need attention** (50+ days negative)
+- **No daily "all clear" spam** - silence when everything is good
+- **Simple, unified format** for all accounts requiring action
+- **Total amount at risk** and **customer/account details**
+
+**📊 Clean Message Format:**
+- Single section showing all accounts that will be closed soon
+- Customer names and IDs for easy lookup
+- Current balance and days inactive
+- Direct link to dashboard
+
+### **Example Slack Message:**
+
+```
+🚨 Account Close Alert - Action Required
+
+2 account(s) will be closed soon - dormant with negative balances for 50+ days.
+
+Total Amount at Risk: $0.32
+
+🚨 Accounts will be closed soon (2 accounts)
+
+ALAN ALEXIS FLORES GIL
+⚠️ Balance: $-0.01 | Days Inactive: 59
+👤 Customer ID: 2740982 | 🏦 Account ID: 3698197
+
+Jesus Manuel Jimenez Garcia
+⚠️ Balance: $-0.31 | Days Inactive: 53
+👤 Customer ID: 2929737 | 🏦 Account ID: 4015232
+
+Daily automated scan completed at 8/27/2025, 12:30:00 PM EST | View Dashboard
+```
 
 ## Development
 
