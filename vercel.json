@@ -1,9 +1,9 @@
 {
   "functions": {
-    "api/cron.js": {
+    "pages/api/cron.js": {
       "maxDuration": 300
     },
-    "api/scan.js": {
+    "pages/api/scan.js": {
       "maxDuration": 300
     }
   },
