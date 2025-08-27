@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-const RESULTS_FILE = path.join(process.cwd(), 'data', 'latest-results.json');
+const RESULTS_FILE = path.join('/tmp', 'latest-results.json');
 
 export default function handler(req, res) {
   if (req.method !== 'GET') {

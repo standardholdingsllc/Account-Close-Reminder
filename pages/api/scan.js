@@ -2,15 +2,13 @@ import { findAccountsApproachingClosure } from '../../lib/unit-api';
 import fs from 'fs';
 import path from 'path';
 
-// Store results in a simple JSON file (in production, you'd use a database)
-const RESULTS_FILE = path.join(process.cwd(), 'data', 'latest-results.json');
+// Store results in serverless-compatible temp directory
+const RESULTS_FILE = path.join('/tmp', 'latest-results.json');
 
-// Ensure data directory exists
+// Ensure temp directory exists (not needed for /tmp, but keeping for compatibility)
 function ensureDataDir() {
-  const dataDir = path.dirname(RESULTS_FILE);
-  if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
-  }
+  // /tmp directory always exists in serverless environments
+  return;
 }
 
 function saveResults(results) {
